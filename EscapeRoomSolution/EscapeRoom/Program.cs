@@ -6,7 +6,13 @@ namespace EscapeRoom
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello test!");
+            ASCIISign titleSign = new ASCIISign();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(titleSign.title);
+            Menu mainMenu = new Menu();
+            mainMenu.startGameMessage();
+            Console.WriteLine("Game start");
+            
         }
     }
 }
