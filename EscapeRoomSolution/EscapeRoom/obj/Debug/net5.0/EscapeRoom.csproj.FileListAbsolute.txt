@@ -1,0 +1,16 @@
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.exe
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.deps.json
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.runtimeconfig.json
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.runtimeconfig.dev.json
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.dll
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\bin\Debug\net5.0\EscapeRoom.pdb
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.csproj.AssemblyReference.cache
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.GeneratedMSBuildEditorConfig.editorconfig
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.AssemblyInfoInputs.cache
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.AssemblyInfo.cs
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.csproj.CoreCompileInputs.cache
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.dll
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\refint\EscapeRoom.dll
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.pdb
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.genruntimeconfig.cache
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\ref\EscapeRoom.dll
