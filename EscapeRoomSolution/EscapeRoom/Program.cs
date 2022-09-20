@@ -9,10 +9,11 @@ namespace EscapeRoom
             ASCIISign titleSign = new ASCIISign();
             Menu mainMenu = new Menu();
 
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(titleSign.title);
 
-            mainMenu.startGameMessage();
+            mainMenu.StartGameMessage();
 
             Console.ResetColor();
             Console.WriteLine("Game start");

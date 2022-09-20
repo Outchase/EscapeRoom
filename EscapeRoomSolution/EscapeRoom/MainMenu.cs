@@ -9,7 +9,7 @@ namespace EscapeRoom
 {
     internal class Menu
     {
-        public void startGameMessage() {
+        public void StartGameMessage() {
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
 
@@ -41,7 +41,7 @@ namespace EscapeRoom
                 Console.Write("Enter your code name: ");
                 playerName = Console.ReadLine();
 
-                if (Regex.IsMatch(playerName, "[a-zA-Z]") == true && playerName.Length > 2 || codeNameTries == 3)
+                if (Regex.IsMatch(playerName, "[a-zA-Z]") == true && playerName.Length > 2 && playerName.Length < 20 || codeNameTries == 3)
                 {
                     userInputRight = true;
                 } else {
