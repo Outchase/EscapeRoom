@@ -9,8 +9,6 @@ namespace EscapeRoom
 {
     internal class Menu
     {
-    
-        
         public void startGameMessage() {
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
@@ -30,26 +28,31 @@ namespace EscapeRoom
             }
            
         }
-        
-        
 
         public void StartGame()
         {
+            string playerName;
             bool userInputRight = false;
+            int codeNameTries = 1;
             Console.WriteLine("You are going to infiltrate SAE's headquarter.\nThis mission necessitates the use of a code name. What is it going to be?");
             Console.ForegroundColor = ConsoleColor.Green;
-            
 
             while (!userInputRight) {
                 Console.Write("Enter your code name: ");
-                string playerName = Console.ReadLine();
-                if (Regex.IsMatch(playerName, "[a-zA-Z]") == true && playerName.Length > 2)
+                playerName = Console.ReadLine();
+
+                if (Regex.IsMatch(playerName, "[a-zA-Z]") == true && playerName.Length > 2 || codeNameTries == 3)
                 {
                     userInputRight = true;
+                } else {
+                    codeNameTries++; 
                 }
+                
             }
             
-            
+            if (codeNameTries == 3) {
+                playerName = "Hero";
+            }
         }
     }
 }
