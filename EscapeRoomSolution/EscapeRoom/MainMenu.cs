@@ -9,7 +9,8 @@ namespace EscapeRoom
 {
     internal class Menu
     {
-        public void StartGameMessage() {
+        string playerName = "";
+        public string StartGameMessage() {
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
 
@@ -23,17 +24,18 @@ namespace EscapeRoom
                     keyPressedRight = true;
                     Console.ResetColor();
                     Console.Clear();
-                    StartGame();
+                    playerName = StartGame();
                 }
             }
-           
+
+            return playerName;
         }
 
-        public void StartGame()
+        public string StartGame()
         {
-            string playerName;
             bool userInputRight = false;
             int codeNameTries = 1;
+
             Console.WriteLine("You are going to infiltrate SAE's headquarter.\nThis mission necessitates the use of a code name. What is it going to be?");
             Console.ForegroundColor = ConsoleColor.Green;
 
@@ -53,6 +55,8 @@ namespace EscapeRoom
             if (codeNameTries == 3) {
                 playerName = "Hero";
             }
+
+            return playerName;
         }
     }
 }
