@@ -11,6 +11,9 @@ namespace EscapeRoom
         public int width;
         public int height;
 
+        public string sideWall = "║";
+        public string uppLowerWall = "═";
+
         public static int VerifyRoomSize(string userInput, string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -19,7 +22,6 @@ namespace EscapeRoom
 
             while (!isNumber)
             {
-                int roomTries = 0;
                 Console.Write("Enter the " + message + " of the building (minimum 15): ");
                 userInput = Console.ReadLine();
 
@@ -45,7 +47,7 @@ namespace EscapeRoom
                 Console.WriteLine("Width: " + width);
                 Console.WriteLine("Height: " + height);
 
-                GenerateRoom(width, height, 0,0);
+                GenerateRoom(width, height, 0,0, "");
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Are you sure with the size? [Y/n] ");
@@ -64,7 +66,7 @@ namespace EscapeRoom
             
         }
 
-        public void GenerateRoom(int roomWidth, int roomHeight, int playerY, int playerX) {
+        public void GenerateRoom(int roomWidth, int roomHeight, int playerY, int playerX, string playerSprite) {
 
             for (int i = 1; i <= roomHeight; i++)
             {
@@ -72,22 +74,36 @@ namespace EscapeRoom
                 {
                     if (i == 1 || i == roomHeight || j == 1 || j == roomWidth)
                     {
-                        if (i == 1 && j == 1 || i == 1 && j == roomWidth || i == roomHeight && j == 1 || i == roomHeight && j == roomWidth)
+                        if (i == 1 && j == 1)
                         {
-                            Console.Write("+");
+                            Console.Write("╔");
+                        }
+                        else if (i == 1 && j == roomWidth)
+                        {
+                            Console.Write("╗");
+                        }
+                        else if (i == roomHeight && j == 1)
+                        {
+                            Console.Write("╚");
+                        }
+                        else if (i == roomHeight && j == roomWidth)
+                        {
+                            Console.Write("╝");
                         }
                         else if (i == 1 && j <= roomWidth || i == roomHeight && j <= roomWidth)
                         {
-                            Console.Write("-");
+                            Console.Write(uppLowerWall);
                         }
                         else
                         {
-                            Console.Write("|");
+                            Console.Write(sideWall);
                         }
                     }
                     else if (i == playerY && j == playerY)
                     {
-                        Console.Write("X");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(playerSprite);
+                        Console.ResetColor();
                     }
                     else
                     {

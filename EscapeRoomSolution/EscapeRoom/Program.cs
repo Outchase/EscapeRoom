@@ -27,7 +27,7 @@ namespace EscapeRoom
 
             player.position = new int[] { randomNumber.Next(2, room.height - 1), randomNumber.Next(2, room.width - 1) };
 
-            room.GenerateRoom(room.width, room.height, player.position[0], player.position[1]);
+            room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite);
         }
 
 

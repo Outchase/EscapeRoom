@@ -17,6 +17,8 @@ namespace EscapeRoom
         }
 
         public int[] position = { };
+
+        public string sprite = "■";
         
     }
 }
