@@ -16,9 +16,9 @@ namespace EscapeRoom
             Console.WriteLine("deen fdp bewegt");
         }
 
-        public int[] position = { };
+        public int[] position = {};
 
         public string sprite = "■";
-        
+
     }
 }
