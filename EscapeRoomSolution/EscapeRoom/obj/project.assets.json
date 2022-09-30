@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
+      "projectUniqueName": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
       "projectName": "EscapeRoom",
-      "projectPath": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
+      "projectPath": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
       "packagesPath": "C:\\Users\\izmir\\.nuget\\packages\\",
-      "outputPath": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\obj\\",
+      "outputPath": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\izmir\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -61,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -30,10 +30,10 @@ namespace EscapeRoom
             room.ConfirmSize();
 
             player.position = GeneratePosition(player.position, room.height - 1, room.width - 1);
-            key.position = GeneratePosition(key.position, room.height - 1, room.width - 1);
+            key.position = GeneratePosition(key.position, room.height - 1, room.width - 1); //not the the room height
             door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
 
-           /* bool isOrganized = false;
+            bool isOrganized = false;
             while (!isOrganized)
             {
                 if (player.position[0] == key.position[0] && player.position[1] == key.position[1] || player.position[0] == door.position[0] && player.position[1] == door.position[1] || key.position[0] == door.position[0] && key.position[1] == door.position[1])
@@ -55,23 +55,25 @@ namespace EscapeRoom
                 {
                     isOrganized = true;
                 }
-            }*/
+            }
+
+            Console.WriteLine("Now before we start with the mission I need to give you few tips.\nYou can move by using the keys W,A,S,D:\n Press W key to move up\n Press S key to move down\n Press A key to move left\n Press the D key to move right\n You can collect the key card by stepping on it and it will then automatically collect it. Same way for the Door if you collect the key card a Door will appear wher you step in it to enter it.");
 
             room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
 
-            Console.WriteLine("Player:");
+            /*Console.WriteLine("Player X Y Array:");
             for (int i = 0; i < player.position.Length; i++)
             {
                 Console.WriteLine(player.position[i]);
             }
 
-            Console.WriteLine("Key:");
+            Console.WriteLine("Key X Y Array:");
             for (int i = 0; i < key.position.Length; i++)
             {
                 Console.WriteLine(key.position[i]);
             }
 
-            Console.WriteLine("Door:");
+            Console.WriteLine("Door Array:");
             for (int i = 0; i < door.position.Length; i++)
             {
                 Console.WriteLine(door.position[i]);
@@ -79,17 +81,17 @@ namespace EscapeRoom
 
             Console.WriteLine("Room:");
             Console.WriteLine("width: " +room.width);
-            Console.WriteLine("height: " +room.height);
+            Console.WriteLine("height: " +room.height);*/
+
+
         }
 
         static int[] GeneratePosition(int[] objPosition, int roomHeight, int roomWidth)
         {
             Random randomNumber = new Random();
-            objPosition = new int[] { randomNumber.Next(2, roomHeight), randomNumber.Next(2, roomWidth) };
+            objPosition = new int[] { randomNumber.Next(2, roomWidth), randomNumber.Next(2, roomHeight) };
 
             return objPosition; 
         }
-
-        
     }
 }

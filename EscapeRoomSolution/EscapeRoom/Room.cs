@@ -68,6 +68,8 @@ namespace EscapeRoom
 
         public void GenerateRoom(int roomWidth, int roomHeight, int playerX, int playerY, string playerSprite, int keyX, int keyY, string keySprite, int doorX, int doorY, string doorSprite) {
 
+           
+
             for (int i = 1; i <= roomHeight; i++)
             {
                 for (int j = 1; j <= roomWidth; j++)
@@ -98,24 +100,26 @@ namespace EscapeRoom
                         {
                             Console.Write(sideWall);
                         }
-                    }
-                    else if (i == playerY && j == playerX)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write(playerSprite);
-                        Console.ResetColor();
-                    }
-                    else if (i == keyY && j == keyX)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(keySprite);
-                        Console.ResetColor();
-                    }
-                    else if (i == doorY && j == doorX)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write(doorSprite);
-                        Console.ResetColor();
+                    }   //generate the wall around
+                    else if (i == playerY && j == playerX || i == keyY && j == keyX || i == doorY && j == doorX) { //checks if the loop passes on of the items/player cordinations 
+                        if (i == playerY && j == playerX)      //add the object to the room
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.Write(playerSprite);
+                            Console.ResetColor();
+                        }
+                        else if (i == keyY && j == keyX)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(keySprite);
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.Write(doorSprite);
+                            Console.ResetColor();
+                        }
                     }
                     else
                     {
@@ -125,6 +129,9 @@ namespace EscapeRoom
                 Console.WriteLine();
             }
             Console.WriteLine();
+            /*Console.WriteLine("Player:\nX: " + playerX + "\nY: " + playerY);
+            Console.WriteLine("Key:\nX: " + keyX + "\nY: " + keyY);
+            Console.WriteLine("Door:\nX: " + doorX + "\nY: " + doorY);*/
         }
     }
 }
