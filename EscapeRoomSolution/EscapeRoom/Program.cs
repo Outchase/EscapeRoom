@@ -34,6 +34,7 @@ namespace EscapeRoom
             door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
 
             bool isOrganized = false;
+            char leftArrow = (char) 27;
             while (!isOrganized)
             {
                 if (player.position[0] == key.position[0] && player.position[1] == key.position[1] || player.position[0] == door.position[0] && player.position[1] == door.position[1] || key.position[0] == door.position[0] && key.position[1] == door.position[1])
@@ -57,7 +58,7 @@ namespace EscapeRoom
                 }
             }
 
-            Console.WriteLine("Now before we start with the mission I need to give you few tips.\nYou can move by using the keys W,A,S,D:\n Press W key to move up\n Press S key to move down\n Press A key to move left\n Press the D key to move right\n You can collect the key card by stepping on it and it will then automatically collect it. Same way for the Door if you collect the key card a Door will appear wher you step in it to enter it.");
+            Console.WriteLine("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the W,A,S,D keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card. After then, the door will be visible and may be entered by heading to it.");
 
             room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
 
@@ -82,9 +83,6 @@ namespace EscapeRoom
             Console.WriteLine("Room:");
             Console.WriteLine("width: " +room.width);
             Console.WriteLine("height: " +room.height);*/
-
-            Console.WriteLine("test0");
-
 
         }
 
