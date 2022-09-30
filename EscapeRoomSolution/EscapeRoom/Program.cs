@@ -83,6 +83,8 @@ namespace EscapeRoom
             Console.WriteLine("width: " +room.width);
             Console.WriteLine("height: " +room.height);*/
 
+            Console.WriteLine("test0");
+
 
         }
 
