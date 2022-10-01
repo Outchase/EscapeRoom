@@ -8,8 +8,10 @@ namespace EscapeRoom
 {
     internal class Room
     {
+        Menu mainMenu = new Menu();
         public int width;
         public int height;
+
 
         public string sideWall = "║";
         public string uppLowerWall = "═";
@@ -104,21 +106,15 @@ namespace EscapeRoom
                     else if (i == playerY && j == playerX || i == keyY && j == keyX || i == doorY && j == doorX) { //checks if the loop passes on of the items/player cordinations 
                         if (i == playerY && j == playerX)      //add the object to the room
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.Write(playerSprite);
-                            Console.ResetColor();
+                            mainMenu.PrinInColor(playerSprite, ConsoleColor.Red, true);
                         }
                         else if (i == keyY && j == keyX)
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write(keySprite);
-                            Console.ResetColor();
+                            mainMenu.PrinInColor(keySprite, ConsoleColor.Green, true);
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.Write(doorSprite);
-                            Console.ResetColor();
+                            mainMenu.PrinInColor(doorSprite, ConsoleColor.Green, true);
                         }
                     }
                     else

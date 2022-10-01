@@ -14,7 +14,7 @@ namespace EscapeRoom
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
 
-            Console.WriteLine("Press Enter to Start");
+            PrinInColor("Press Enter to Start", ConsoleColor.Yellow, true);
 
             while (!keyPressedRight) {
                 
@@ -22,7 +22,6 @@ namespace EscapeRoom
 
                 if (userKeyInput.Key == ConsoleKey.Enter) { 
                     keyPressedRight = true;
-                    Console.ResetColor();
                     Console.Clear();
                     playerName = StartGame();
                 }
@@ -37,10 +36,10 @@ namespace EscapeRoom
             int codeNameTries = 1;
 
             Console.WriteLine("You are going to infiltrate SAE's headquarter.\nThis mission necessitates the use of a code name. What is it going to be?");
-            Console.ForegroundColor = ConsoleColor.Green;
 
             while (!userInputRight) {
-                Console.Write("Enter your code name: ");
+            PrinInColor("Enter your code name: ", ConsoleColor.Green, false);
+
                 playerName = Console.ReadLine();
 
                 if (Regex.IsMatch(playerName, "[a-zA-Z]") == true && playerName.Length > 2 && playerName.Length < 20 || codeNameTries == 3)
@@ -57,6 +56,16 @@ namespace EscapeRoom
             }
 
             return playerName;
+        }
+
+        public void PrinInColor(string message, ConsoleColor color, bool resetColor)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(message);
+            if (resetColor)
+            {
+                Console.ResetColor();
+            }
         }
     }
 }

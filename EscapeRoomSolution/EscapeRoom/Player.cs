@@ -11,9 +11,23 @@ namespace EscapeRoom
         
         public string codeName;
 
-        public void Movement()
+        public void Movement(char key)
         {
-            Console.WriteLine("deen fdp bewegt");
+            switch (key) {
+                case 'w':
+                    position[1]++;
+                    break;
+                case 's':
+                    position[1]--;
+                    break;
+                case 'a':
+                    position[0]--;
+                    break;
+                case 'd':
+                    position[0]++;
+                    break;
+            }
+            Console.WriteLine("New Player Position:\nX:"+position[0] + "\nY:"+ position[1]);
         }
 
         public int[] position = {};
