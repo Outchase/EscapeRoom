@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -19,8 +20,6 @@ namespace EscapeRoom
             Random randomNumber = new Random();
             ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
 
-            char keyInput = 'W';
-            
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
 
             player.codeName = mainMenu.StartGameMessage();
@@ -38,30 +37,8 @@ namespace EscapeRoom
             key.position = GeneratePosition(key.position, room.height - 1, room.width - 1); //not the the room height
             door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
 
-            bool isOrganized = false;
-          
-            while (!isOrganized)
-            {
-                if (player.position[0] == key.position[0] && player.position[1] == key.position[1] || player.position[0] == door.position[0] && player.position[1] == door.position[1] || key.position[0] == door.position[0] && key.position[1] == door.position[1])
-                {
-                    if (player.position[0] == key.position[0] && player.position[1] == key.position[1])
-                    {
-                        key.position = GeneratePosition(key.position, room.height - 1, room.width - 1);
-                    }
-                    if (player.position[0] == door.position[0] && player.position[1] == door.position[1])
-                    {
-                        door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
-                    }
-                    if (key.position[0] == door.position[0] && key.position[1] == door.position[1])
-                    {
-                        door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
-                    }
-                }
-                else
-                {
-                    isOrganized = true;
-                }
-            }
+
+            PositionVerify(player.position, key.position, door.position, room.width, room.height);
 
             Console.Write("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the ");
             mainMenu.PrinInColor("W,A,S,D", ConsoleColor.Green, true);
@@ -74,14 +51,15 @@ namespace EscapeRoom
 
             room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
 
+            Console.WriteLine("Player Array Position:\nX:"+ player.position[0] +"\nY:" + player.position[1]);
+            Console.WriteLine("Key Array Position:\nX:"+ key.position[0] +"\nY:" + key.position[1]);
+            Console.WriteLine("Door Array Position:\nX:"+ door.position[0] +"\nY:" + door.position[1]);
             
-
-            Console.WriteLine("Player X Y Array:");
-            for (int i = 0; i < player.position.Length; i++)
+            /*for (int i = 0; i < player.position.Length; i++)
             {
                 Console.WriteLine(player.position[i]);
             }
-            /*
+            
             Console.WriteLine("Key X Y Array:");
             for (int i = 0; i < key.position.Length; i++)
             {
@@ -99,9 +77,8 @@ namespace EscapeRoom
             Console.WriteLine("height: " +room.height);*/
 
             keyinfo = Console.ReadKey(true);
-            keyInput = keyinfo.KeyChar;
 
-            player.Movement(keyInput);
+            player.Movement(keyinfo);
 
         }
 
@@ -112,7 +89,38 @@ namespace EscapeRoom
 
             return objPosition; 
         }
-
+        static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight) {
+            bool isOrganized = false;
+            //Console.WriteLine("Player position:\nX:" + playerPosition[0]+"\nY:"+playerPosition);
+            while (!isOrganized)
+            {
+                if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1] || playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1] || keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
+                {
+                    Console.WriteLine("same");
+                    if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1])
+                    {
+                        keyPosition = GeneratePosition(keyPosition, roomHeight - 1, roomWidth - 1);
+                        Console.WriteLine("keyPos to player changed");
+                    }
+                    if (playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1])
+                    {
+                        doorPosition = GeneratePosition(doorPosition, roomHeight - 1, roomWidth - 1);
+                        Console.WriteLine("DoorPos to Player changed");
+                    }
+                    if (keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
+                    {
+                        doorPosition = GeneratePosition(doorPosition, roomHeight - 1, roomWidth - 1);
+                        Console.WriteLine("DoorPos to key changed");
+                    }
+                    Console.WriteLine("New Player position:\nX:" + playerPosition[0] + "\nY:" + playerPosition[1]);
+                    Console.WriteLine("New Key position:\nX:" + keyPosition[0] + "\nY:" + keyPosition[1]);
+                }
+                else
+                {
+                    isOrganized = true;
+                }
+            }
+        }
         
     }
 }

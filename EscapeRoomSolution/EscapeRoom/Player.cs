@@ -11,23 +11,24 @@ namespace EscapeRoom
         
         public string codeName;
 
-        public void Movement(char key)
+        public void Movement(ConsoleKeyInfo key) // refine key input
         {
-            switch (key) {
-                case 'w':
+            switch (key.Key) {
+                case ConsoleKey.W:
                     position[1]++;
                     break;
-                case 's':
+                case ConsoleKey.S:
                     position[1]--;
                     break;
-                case 'a':
+                case ConsoleKey.A:
                     position[0]--;
                     break;
-                case 'd':
+                case ConsoleKey.D:
                     position[0]++;
                     break;
             }
             Console.WriteLine("New Player Position:\nX:"+position[0] + "\nY:"+ position[1]);
+
         }
 
         public int[] position = {};
