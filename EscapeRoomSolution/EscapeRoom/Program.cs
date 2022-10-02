@@ -89,6 +89,7 @@ namespace EscapeRoom
 
             return objPosition; 
         }
+
         static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight) {
             bool isOrganized = false;
             //Console.WriteLine("Player position:\nX:" + playerPosition[0]+"\nY:"+playerPosition);
