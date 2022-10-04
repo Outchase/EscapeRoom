@@ -18,7 +18,6 @@ namespace EscapeRoom
             Door door = new Door();
             Room room = new Room();
             Random randomNumber = new Random();
-            ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
 
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
 
@@ -54,32 +53,12 @@ namespace EscapeRoom
             Console.WriteLine("Player Array Position:\nX:"+ player.position[0] +"\nY:" + player.position[1]);
             Console.WriteLine("Key Array Position:\nX:"+ key.position[0] +"\nY:" + key.position[1]);
             Console.WriteLine("Door Array Position:\nX:"+ door.position[0] +"\nY:" + door.position[1]);
-            
-            /*for (int i = 0; i < player.position.Length; i++)
-            {
-                Console.WriteLine(player.position[i]);
-            }
-            
-            Console.WriteLine("Key X Y Array:");
-            for (int i = 0; i < key.position.Length; i++)
-            {
-                Console.WriteLine(key.position[i]);
-            }
 
-            Console.WriteLine("Door Array:");
-            for (int i = 0; i < door.position.Length; i++)
-            {
-                Console.WriteLine(door.position[i]);
-            }
-
-            Console.WriteLine("Room:");
+            /*Console.WriteLine("Room:");
             Console.WriteLine("width: " +room.width);
             Console.WriteLine("height: " +room.height);*/
 
-            keyinfo = Console.ReadKey(true);
-
-            player.Movement(keyinfo);
-
+            Game(false, player, room, key, door);
         }
 
         static int[] GeneratePosition(int[] objPosition, int roomHeight, int roomWidth)
@@ -122,6 +101,26 @@ namespace EscapeRoom
                 }
             }
         }
-        
+
+        static void Game(bool gameOver, Player player, Room room, Key key, Door door) {
+            Console.WriteLine("in");
+            //int numCount = 0;
+            while (!gameOver)
+            {
+            player.Movement(room);
+                /*switch (numCount) {
+                    case 5:
+                        gameOver = true;
+                        break;
+                    default:
+                        numCount++;
+                        break;
+                }*/
+                Console.Clear();
+                room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
+                Console.WriteLine("New Player Position:\nX:" + player.position[0] + "\nY:" + player.position[1]);
+                //Console.WriteLine("Steps: " + numCount);
+            }
+        }
     }
 }
