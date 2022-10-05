@@ -7,7 +7,7 @@ namespace EscapeRoom
 {
     internal class Program
     {
-        
+
         static void Main(string[] args)
         {
 
@@ -44,15 +44,15 @@ namespace EscapeRoom
             Console.Write(" keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card (");
             mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
             Console.Write(")\nAfter then, the door (");
-            mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true); 
+            mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
             Console.Write(") will be visible and may be entered by heading to it.");
             Console.WriteLine();
 
             room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
 
-            Console.WriteLine("Player Array Position:\nX:"+ player.position[0] +"\nY:" + player.position[1]);
-            Console.WriteLine("Key Array Position:\nX:"+ key.position[0] +"\nY:" + key.position[1]);
-            Console.WriteLine("Door Array Position:\nX:"+ door.position[0] +"\nY:" + door.position[1]);
+            Console.WriteLine("Player Array Position:\nX:" + player.position[0] + "\nY:" + player.position[1]);
+            Console.WriteLine("Key Array Position:\nX:" + key.position[0] + "\nY:" + key.position[1]);
+            Console.WriteLine("Door Array Position:\nX:" + door.position[0] + "\nY:" + door.position[1]);
 
             /*Console.WriteLine("Room:");
             Console.WriteLine("width: " +room.width);
@@ -66,10 +66,11 @@ namespace EscapeRoom
             Random randomNumber = new Random();
             objPosition = new int[] { randomNumber.Next(2, roomWidth), randomNumber.Next(2, roomHeight) };
 
-            return objPosition; 
+            return objPosition;
         }
 
-        static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight) {
+        static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight)
+        {
             bool isOrganized = false;
             //Console.WriteLine("Player position:\nX:" + playerPosition[0]+"\nY:"+playerPosition);
             while (!isOrganized)
@@ -102,24 +103,14 @@ namespace EscapeRoom
             }
         }
 
-        static void Game(bool gameOver, Player player, Room room, Key key, Door door) {
+        static void Game(bool gameOver, Player player, Room room, Key key, Door door)
+        {
             Console.WriteLine("in");
-            //int numCount = 0;
             while (!gameOver)
             {
-            player.Movement(room);
-                /*switch (numCount) {
-                    case 5:
-                        gameOver = true;
-                        break;
-                    default:
-                        numCount++;
-                        break;
-                }*/
+                player.Movement(room);
                 Console.Clear();
                 room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
-                Console.WriteLine("New Player Position:\nX:" + player.position[0] + "\nY:" + player.position[1]);
-                //Console.WriteLine("Steps: " + numCount);
             }
         }
     }

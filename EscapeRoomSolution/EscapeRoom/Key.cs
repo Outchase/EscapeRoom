@@ -12,6 +12,6 @@ namespace EscapeRoom
 
         public string sprite = "·";
 
-        //public bool collect = false;
+        public bool isCollect = false;
     }
 }

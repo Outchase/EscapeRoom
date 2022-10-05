@@ -12,6 +12,7 @@ namespace EscapeRoom
 
         public string sprite = "█";
 
-        //public bool visible = false;
+        public bool isVisible = false;
+
     }
 }
