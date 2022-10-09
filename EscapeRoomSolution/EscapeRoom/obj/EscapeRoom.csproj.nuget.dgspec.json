@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj": {}
+    "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj": {}
   },
   "projects": {
-    "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj": {
+    "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
+        "projectUniqueName": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
         "projectName": "EscapeRoom",
-        "projectPath": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
+        "projectPath": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\EscapeRoom.csproj",
         "packagesPath": "C:\\Users\\izmir\\.nuget\\packages\\",
-        "outputPath": "D:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\obj\\",
+        "outputPath": "E:\\SAE\\1sem\\4F01\\EscapeRoom\\EscapeRoomSolution\\EscapeRoom\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\izmir\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -55,7 +55,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

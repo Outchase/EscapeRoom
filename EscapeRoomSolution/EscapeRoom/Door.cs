@@ -8,11 +8,9 @@ namespace EscapeRoom
 {
     internal class Door
     {
-        public int[] position = {};
+        public int[] position = {0,0};
 
         public string sprite = "█";
-
-        public bool isVisible = false;
 
     }
 }

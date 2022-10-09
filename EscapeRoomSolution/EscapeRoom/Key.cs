@@ -8,7 +8,7 @@ namespace EscapeRoom
 {
     internal class Key
     {
-        public int[] position = {};
+        public int[] position = {0,0};
 
         public string sprite = "·";
 

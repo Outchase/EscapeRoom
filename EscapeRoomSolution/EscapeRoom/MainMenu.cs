@@ -52,7 +52,7 @@ namespace EscapeRoom
             }
             
             if (codeNameTries == 3) {
-                playerName = "Hero";
+                playerName = "Zero";
             }
 
             return playerName;

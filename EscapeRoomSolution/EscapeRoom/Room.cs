@@ -40,61 +40,78 @@ namespace EscapeRoom
         {
             string userInput = "";
             bool userChoice = false;
-            
+
             while (!userChoice)
             {
+                Player player = new Player();
+                Key key = new Key();
+                Door door = new Door();
+
                 width = VerifyRoomSize(userInput, "width");
                 height = VerifyRoomSize(userInput, "height");
 
                 Console.WriteLine("Width: " + width);
                 Console.WriteLine("Height: " + height);
 
-                GenerateRoom(width, height, 0, 0, " ", 0, 0, " ", 0, 0, " ");
+                GenerateRoom(player, key, door);
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Are you sure with the size? [Y/n] ");
+                Console.WriteLine("Are you sure with this size? [Y/n] ");
 
                 ConsoleKeyInfo userKeyInput;
-                userKeyInput = Console.ReadKey(true);
+                
+                bool keyPressedRight = false;
 
-                if (userKeyInput.Key == ConsoleKey.Y)
+                while (!keyPressedRight)
                 {
-                    userChoice = true;
+
+                    userKeyInput = Console.ReadKey(true);
+
+                    if (userKeyInput.Key == ConsoleKey.Y)
+                    {
+                        keyPressedRight = true;
+                        userChoice = true;
+                        Console.Clear();
+                    }
+                    else if (userKeyInput.Key == ConsoleKey.N)
+                    {
+                        keyPressedRight = true;
+                        Console.Clear();
+                    }
                 }
-                Console.Clear();
+
             }
+
             Console.ResetColor();
 
-            
         }
 
-        public void GenerateRoom(int roomWidth, int roomHeight, int playerX, int playerY, string playerSprite, int keyX, int keyY, string keySprite, int doorX, int doorY, string doorSprite) {
+        public void GenerateRoom(Player player, Key key, Door door)
+        {
 
-           
-
-            for (int i = 1; i <= roomHeight; i++)
+            for (int i = 1; i <= height; i++)
             {
-                for (int j = 1; j <= roomWidth; j++)
+                for (int j = 1; j <= width; j++)
                 {
-                    if (i == 1 || i == roomHeight || j == 1 || j == roomWidth)
+                    if (i == 1 || i == height || j == 1 || j == width)
                     {
                         if (i == 1 && j == 1)
                         {
                             Console.Write("╔");
                         }
-                        else if (i == 1 && j == roomWidth)
+                        else if (i == 1 && j == width)
                         {
                             Console.Write("╗");
                         }
-                        else if (i == roomHeight && j == 1)
+                        else if (i == height && j == 1)
                         {
                             Console.Write("╚");
                         }
-                        else if (i == roomHeight && j == roomWidth)
+                        else if (i == height && j == width)
                         {
                             Console.Write("╝");
                         }
-                        else if (i == 1 && j <= roomWidth || i == roomHeight && j <= roomWidth)
+                        else if (i == 1 && j <= width || i == height && j <= width)
                         {
                             Console.Write(uppLowerWall);
                         }
@@ -103,18 +120,33 @@ namespace EscapeRoom
                             Console.Write(sideWall);
                         }
                     }   //generate the wall around
-                    else if (i == playerY && j == playerX || i == keyY && j == keyX || i == doorY && j == doorX) { //checks if the loop passes on of the items/player cordinations 
-                        if (i == playerY && j == playerX)      //add the object to the room
+                    else if (i == player.position[1] && j == player.position[0] || i == key.position[1] && j == key.position[0] || i == door.position[1] && j == door.position[0])
+                    { //checks if the loop passes on of the items/player cordinations 
+                        if (i == player.position[1] && j == player.position[0])      //add the object to the room
                         {
-                            mainMenu.PrinInColor(playerSprite, ConsoleColor.Red, true);
+                            mainMenu.PrinInColor(player.sprite, ConsoleColor.Red, true);
                         }
-                        else if (i == keyY && j == keyX)
+                        else if (i == key.position[1] && j == key.position[0])
                         {
-                            mainMenu.PrinInColor(keySprite, ConsoleColor.Green, true);
+                            if (key.isCollect)
+                            {
+                                Console.Write(" ");
+                            }
+                            else
+                            {
+                                mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
+                            }
                         }
                         else
                         {
-                            mainMenu.PrinInColor(doorSprite, ConsoleColor.Green, true);
+                            if (key.isCollect)
+                            {
+                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                            }
+                            else
+                            {
+                                Console.Write(" ");
+                            }
                         }
                     }
                     else
@@ -125,9 +157,6 @@ namespace EscapeRoom
                 Console.WriteLine();
             }
             Console.WriteLine();
-            /*Console.WriteLine("Player:\nX: " + playerX + "\nY: " + playerY);
-            Console.WriteLine("Key:\nX: " + keyX + "\nY: " + keyY);
-            Console.WriteLine("Door:\nX: " + doorX + "\nY: " + doorY);*/
         }
     }
 }

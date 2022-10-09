@@ -10,14 +10,20 @@ namespace EscapeRoom
 
         static void Main(string[] args)
         {
-
             ASCIISign titleSign = new ASCIISign();
             Menu mainMenu = new Menu();
             Player player = new Player();
             Key key = new Key();
             Door door = new Door();
             Room room = new Room();
-            Random randomNumber = new Random();
+
+            StartGame(titleSign, mainMenu, player, key, door, room);
+        }
+
+        static void StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room) {
+
+            key.isCollect = false;
+            player.didEscape = false;
 
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
 
@@ -32,47 +38,42 @@ namespace EscapeRoom
 
             room.ConfirmSize();
 
-            player.position = GeneratePosition(player.position, room.height - 1, room.width - 1);
-            key.position = GeneratePosition(key.position, room.height - 1, room.width - 1); //not the the room height
-            door.position = GeneratePosition(door.position, room.height - 1, room.width - 1);
 
+            player.position = GeneratePosition(player.position, room.height, room.width, false);
+            key.position = GeneratePosition(key.position, room.height, room.width, false); //not the the room height
+            door.position = GeneratePosition(door.position, room.height, room.width, true);
 
             PositionVerify(player.position, key.position, door.position, room.width, room.height);
 
-            Console.Write("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the ");
-            mainMenu.PrinInColor("W,A,S,D", ConsoleColor.Green, true);
-            Console.Write(" keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card (");
-            mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
-            Console.Write(")\nAfter then, the door (");
-            mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
-            Console.Write(") will be visible and may be entered by heading to it.");
-            Console.WriteLine();
-
-            room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
-
-            Console.WriteLine("Player Array Position:\nX:" + player.position[0] + "\nY:" + player.position[1]);
-            Console.WriteLine("Key Array Position:\nX:" + key.position[0] + "\nY:" + key.position[1]);
-            Console.WriteLine("Door Array Position:\nX:" + door.position[0] + "\nY:" + door.position[1]);
-
-            /*Console.WriteLine("Room:");
-            Console.WriteLine("width: " +room.width);
-            Console.WriteLine("height: " +room.height);*/
-
-            Game(false, player, room, key, door);
+            Game(false, player, room, key, door, mainMenu, titleSign);
         }
 
-        static int[] GeneratePosition(int[] objPosition, int roomHeight, int roomWidth)
+
+        static int[] GeneratePosition(int[] objPosition, int roomHeight, int roomWidth, bool isDoor)
         {
             Random randomNumber = new Random();
-            objPosition = new int[] { randomNumber.Next(2, roomWidth), randomNumber.Next(2, roomHeight) };
 
-            return objPosition;
+            int[] edgeHeightPosition= new int[] {2,roomHeight-1};
+            int xPosition = randomNumber.Next(2, roomWidth);
+            int yPosition = randomNumber.Next(2, roomHeight);
+
+            if (!isDoor)
+            {
+                objPosition = new int[] { xPosition, yPosition};
+            }
+            else
+            {
+                if (xPosition != 2 || xPosition != roomWidth) { 
+                objPosition = new int[] {xPosition, edgeHeightPosition[randomNumber.Next(2)]};
+                }
+            }
+                return objPosition;
         }
 
         static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight)
         {
             bool isOrganized = false;
-            //Console.WriteLine("Player position:\nX:" + playerPosition[0]+"\nY:"+playerPosition);
+
             while (!isOrganized)
             {
                 if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1] || playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1] || keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
@@ -80,21 +81,16 @@ namespace EscapeRoom
                     Console.WriteLine("same");
                     if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1])
                     {
-                        keyPosition = GeneratePosition(keyPosition, roomHeight - 1, roomWidth - 1);
-                        Console.WriteLine("keyPos to player changed");
+                        keyPosition = GeneratePosition(keyPosition, roomHeight, roomWidth, false);
                     }
                     if (playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1])
                     {
-                        doorPosition = GeneratePosition(doorPosition, roomHeight - 1, roomWidth - 1);
-                        Console.WriteLine("DoorPos to Player changed");
+                        doorPosition = GeneratePosition(doorPosition, roomHeight, roomWidth, true);
                     }
                     if (keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
                     {
-                        doorPosition = GeneratePosition(doorPosition, roomHeight - 1, roomWidth - 1);
-                        Console.WriteLine("DoorPos to key changed");
+                        doorPosition = GeneratePosition(doorPosition, roomHeight, roomWidth, true);
                     }
-                    Console.WriteLine("New Player position:\nX:" + playerPosition[0] + "\nY:" + playerPosition[1]);
-                    Console.WriteLine("New Key position:\nX:" + keyPosition[0] + "\nY:" + keyPosition[1]);
                 }
                 else
                 {
@@ -103,15 +99,88 @@ namespace EscapeRoom
             }
         }
 
-        static void Game(bool gameOver, Player player, Room room, Key key, Door door)
+        static void Game(bool gameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
         {
-            Console.WriteLine("in");
             while (!gameOver)
             {
-                player.Movement(room);
-                Console.Clear();
-                room.GenerateRoom(room.width, room.height, player.position[0], player.position[1], player.sprite, key.position[0], key.position[1], key.sprite, door.position[0], door.position[1], door.sprite);
+                Console.Write("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the ");
+                mainMenu.PrinInColor("W,A,S,D", ConsoleColor.Green, true);
+                Console.Write(" keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card (");
+                mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
+                Console.Write(")\nAfter then, the door (");
+                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                Console.Write(") will be visible and may be entered by heading to it.\n");
+                mainMenu.PrinInColor("\nMission:\n", ConsoleColor.Yellow, true);
+
+                if (player.position[0] == key.position[0] && player.position[1] == key.position[1] && !key.isCollect)
+                {
+                    key.isCollect = true;
+                }
+
+                if (player.position[0] == door.position[0] && player.position[1] == door.position[1] && key.isCollect)
+                {
+                    player.didEscape = true;
+                }
+
+                if (key.isCollect)
+                {
+                    mainMenu.PrinInColor("■ Collect the Keycard\n", ConsoleColor.Green, true);
+                }
+                else { 
+                Console.WriteLine("■ Collect the Keycard");
+                }
+
+                if (player.didEscape)
+                {
+                    mainMenu.PrinInColor("■ Escape from the HQ\n", ConsoleColor.Green, true);
+                    gameOver = true;
+                }
+                else
+                {
+                    Console.WriteLine("■ Escape from the HQ");
+                    room.GenerateRoom(player, key, door);
+                    player.Movement(room);
+                }
             }
+            
+            mainMenu.PrinInColor(titleSign.missionComplete, ConsoleColor.Yellow, true);
+            bool wantToPlayAgain = RestartGame(mainMenu, titleSign);
+            Console.Clear();
+
+            if (wantToPlayAgain)
+            {
+                StartGame(titleSign, mainMenu, player, key, door, room);
+            }
+            else {
+                mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
+            }
+        }
+
+        static bool RestartGame(Menu mainMenu, ASCIISign titleSign) {
+
+            ConsoleKeyInfo userKeyInput;
+            bool keyPressedRight = false;
+            bool wantToPlayAgain = false;
+
+            mainMenu.PrinInColor("Do you want to try again? [Y/n] ", ConsoleColor.Green, true);
+
+            while (!keyPressedRight)
+            {
+
+                userKeyInput = Console.ReadKey(true);
+
+                if (userKeyInput.Key == ConsoleKey.Y)
+                {
+                    keyPressedRight = true;
+                    wantToPlayAgain= true;
+                }
+                else if (userKeyInput.Key == ConsoleKey.N)
+                {
+                    keyPressedRight = true;
+                }
+            }
+
+            return wantToPlayAgain;
         }
     }
 }

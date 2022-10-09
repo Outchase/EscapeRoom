@@ -12,6 +12,8 @@ namespace EscapeRoom
 
         public string codeName;
 
+        public bool didEscape = false;
+
         public void Movement(Room room)
         {
 
@@ -164,34 +166,11 @@ namespace EscapeRoom
                             break;
                     }
                 }
-
-                //problem need fix
-
-                /*switch (keyinfo.Key)
-                {
-                    case ConsoleKey.W:
-                        position[1]--;
-                        rightKeyPressed = true;
-                        break;
-                    case ConsoleKey.S:
-                        position[1]++;
-                        rightKeyPressed = true;
-                        break;
-                    case ConsoleKey.A:
-                        position[0]--;
-                        rightKeyPressed = true;
-                        break;
-                    case ConsoleKey.D:
-                        position[0]++;
-                        rightKeyPressed = true;
-                        break;
-                }*/
-
             }
             Console.Clear();
         }
 
-        public int[] position = { };
+        public int[] position = {0,0};
 
         public string sprite = "■";
 
