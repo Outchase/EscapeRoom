@@ -24,10 +24,10 @@ namespace EscapeRoom
 
             while (!isNumber)
             {
-                Console.Write("Enter the " + message + " of the building (minimum 15): ");
+                Console.Write("Enter the " + message + " of the building (minimum 15 - maximum 230): ");
                 userInput = Console.ReadLine();
 
-                if (int.TryParse(userInput, out numericValue) && numericValue >= 15)
+                if (int.TryParse(userInput, out numericValue) && numericValue >= 15 && numericValue <= 230)
                 {
                     isNumber = true;
                 }

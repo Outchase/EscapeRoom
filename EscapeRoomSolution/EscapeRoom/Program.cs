@@ -20,7 +20,8 @@ namespace EscapeRoom
             StartGame(titleSign, mainMenu, player, key, door, room);
         }
 
-        static void StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room) {
+        static void StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room)
+        {
 
             key.isCollect = false;
             player.didEscape = false;
@@ -39,38 +40,39 @@ namespace EscapeRoom
             room.ConfirmSize();
 
 
-            player.position = GeneratePosition(player.position, room.height, room.width, false);
-            key.position = GeneratePosition(key.position, room.height, room.width, false); //not the the room height
-            door.position = GeneratePosition(door.position, room.height, room.width, true);
+            player.position = GeneratePosition(player.position, room, false);
+            key.position = GeneratePosition(key.position, room, false);
+            door.position = GeneratePosition(door.position, room, true);
 
-            PositionVerify(player.position, key.position, door.position, room.width, room.height);
+            PositionVerify(player.position, key.position, door.position, room);
 
             Game(false, player, room, key, door, mainMenu, titleSign);
         }
 
 
-        static int[] GeneratePosition(int[] objPosition, int roomHeight, int roomWidth, bool isDoor)
+        static int[] GeneratePosition(int[] objPosition, Room room, bool isDoor)
         {
             Random randomNumber = new Random();
 
-            int[] edgeHeightPosition= new int[] {2,roomHeight-1};
-            int xPosition = randomNumber.Next(2, roomWidth);
-            int yPosition = randomNumber.Next(2, roomHeight);
+            int[] edgeHeightPosition = new int[] { 2, room.height - 1 };
+            int xPosition = randomNumber.Next(2, room.width);
+            int yPosition = randomNumber.Next(2, room.height);
 
             if (!isDoor)
             {
-                objPosition = new int[] { xPosition, yPosition};
+                objPosition = new int[] { xPosition, yPosition };
             }
             else
             {
-                if (xPosition != 2 || xPosition != roomWidth) { 
-                objPosition = new int[] {xPosition, edgeHeightPosition[randomNumber.Next(2)]};
+                if (xPosition != 2 || xPosition != room.width)
+                {
+                    objPosition = new int[] { xPosition, edgeHeightPosition[randomNumber.Next(2)] };
                 }
             }
-                return objPosition;
+            return objPosition;
         }
 
-        static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, int roomWidth, int roomHeight)
+        static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, Room room)
         {
             bool isOrganized = false;
 
@@ -81,15 +83,15 @@ namespace EscapeRoom
                     Console.WriteLine("same");
                     if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1])
                     {
-                        keyPosition = GeneratePosition(keyPosition, roomHeight, roomWidth, false);
+                        keyPosition = GeneratePosition(keyPosition, room, false);
                     }
                     if (playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1])
                     {
-                        doorPosition = GeneratePosition(doorPosition, roomHeight, roomWidth, true);
+                        doorPosition = GeneratePosition(doorPosition, room, true);
                     }
                     if (keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
                     {
-                        doorPosition = GeneratePosition(doorPosition, roomHeight, roomWidth, true);
+                        doorPosition = GeneratePosition(doorPosition, room, true);
                     }
                 }
                 else
@@ -126,8 +128,9 @@ namespace EscapeRoom
                 {
                     mainMenu.PrinInColor("■ Collect the Keycard\n", ConsoleColor.Green, true);
                 }
-                else { 
-                Console.WriteLine("■ Collect the Keycard");
+                else
+                {
+                    Console.WriteLine("■ Collect the Keycard");
                 }
 
                 if (player.didEscape)
@@ -142,7 +145,7 @@ namespace EscapeRoom
                     player.Movement(room);
                 }
             }
-            
+
             mainMenu.PrinInColor(titleSign.missionComplete, ConsoleColor.Yellow, true);
             bool wantToPlayAgain = RestartGame(mainMenu, titleSign);
             Console.Clear();
@@ -151,12 +154,14 @@ namespace EscapeRoom
             {
                 StartGame(titleSign, mainMenu, player, key, door, room);
             }
-            else {
+            else
+            {
                 mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
             }
         }
 
-        static bool RestartGame(Menu mainMenu, ASCIISign titleSign) {
+        static bool RestartGame(Menu mainMenu, ASCIISign titleSign)
+        {
 
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
@@ -172,7 +177,7 @@ namespace EscapeRoom
                 if (userKeyInput.Key == ConsoleKey.Y)
                 {
                     keyPressedRight = true;
-                    wantToPlayAgain= true;
+                    wantToPlayAgain = true;
                 }
                 else if (userKeyInput.Key == ConsoleKey.N)
                 {

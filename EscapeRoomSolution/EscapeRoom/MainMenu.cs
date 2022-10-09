@@ -23,14 +23,14 @@ namespace EscapeRoom
                 if (userKeyInput.Key == ConsoleKey.Enter) { 
                     keyPressedRight = true;
                     Console.Clear();
-                    playerName = StartGame();
+                    playerName = IntroGame();
                 }
             }
 
             return playerName;
         }
 
-        public string StartGame()
+        public string IntroGame()
         {
             bool userInputRight = false;
             int codeNameTries = 1;
