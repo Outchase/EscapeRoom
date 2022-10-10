@@ -16,12 +16,14 @@ namespace EscapeRoom
         public string sideWall = "║";
         public string uppLowerWall = "═";
 
+        //verify input values of room size to generate
         public static int VerifyRoomSize(string userInput, string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             int numericValue = 0;
             bool isNumber = false;
-
+            
+            //min and max inputs and parse to initger
             while (!isNumber)
             {
                 Console.Write("Enter the " + message + " of the building (minimum 15 - maximum 230): ");
@@ -32,34 +34,29 @@ namespace EscapeRoom
                     isNumber = true;
                 }
             }
+
             Console.ResetColor();
             return numericValue;
         }
 
-        public void ConfirmSize()
+        //set and change the room size before confirm
+        public void ConfirmSize(Player player, Key key, Door door, Menu mainMenu)
         {
             string userInput = "";
-            bool userChoice = false;
+            bool didConfirm = false;
 
-            while (!userChoice)
+            while (!didConfirm)
             {
-                Player player = new Player();
-                Key key = new Key();
-                Door door = new Door();
-
+                //prompt width & height and display room size
                 width = VerifyRoomSize(userInput, "width");
                 height = VerifyRoomSize(userInput, "height");
-
                 Console.WriteLine("Width: " + width);
                 Console.WriteLine("Height: " + height);
-
                 GenerateRoom(player, key, door);
 
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Are you sure with this size? [Y/n] ");
+                mainMenu.PrinInColor("Are you sure with this size? [Y/n] ", ConsoleColor.Green, true);
 
                 ConsoleKeyInfo userKeyInput;
-                
                 bool keyPressedRight = false;
 
                 while (!keyPressedRight)
@@ -70,7 +67,7 @@ namespace EscapeRoom
                     if (userKeyInput.Key == ConsoleKey.Y)
                     {
                         keyPressedRight = true;
-                        userChoice = true;
+                        didConfirm = true;
                         Console.Clear();
                     }
                     else if (userKeyInput.Key == ConsoleKey.N)
@@ -79,13 +76,10 @@ namespace EscapeRoom
                         Console.Clear();
                     }
                 }
-
             }
-
-            Console.ResetColor();
-
         }
 
+        //generate the room and displays it //change to array
         public void GenerateRoom(Player player, Key key, Door door)
         {
 
@@ -93,7 +87,7 @@ namespace EscapeRoom
             {
                 for (int j = 1; j <= width; j++)
                 {
-                    if (i == 1 || i == height || j == 1 || j == width)
+                    if (i == 1 || i == height || j == 1 || j == width || i == door.position[1] && j == door.position[0])
                     {
                         if (i == 1 && j == 1)
                         {
@@ -113,20 +107,34 @@ namespace EscapeRoom
                         }
                         else if (i == 1 && j <= width || i == height && j <= width)
                         {
-                            Console.Write(uppLowerWall);
+                            if (i == door.position[1] && j == door.position[0] && key.isCollect)
+                            {
+                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                            }
+                            else
+                            {
+                                Console.Write(uppLowerWall);
+                            }
                         }
                         else
                         {
-                            Console.Write(sideWall);
+                            if (i == door.position[1] && j == door.position[0] && key.isCollect)
+                            {
+                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                            }
+                            else
+                            {
+                                Console.Write(sideWall);
+                            }
                         }
                     }   //generate the wall around
-                    else if (i == player.position[1] && j == player.position[0] || i == key.position[1] && j == key.position[0] || i == door.position[1] && j == door.position[0])
+                    else if (i == player.position[1] && j == player.position[0] || i == key.position[1] && j == key.position[0] )
                     { //checks if the loop passes on of the items/player cordinations 
                         if (i == player.position[1] && j == player.position[0])      //add the object to the room
                         {
                             mainMenu.PrinInColor(player.sprite, ConsoleColor.Red, true);
                         }
-                        else if (i == key.position[1] && j == key.position[0])
+                        else
                         {
                             if (key.isCollect)
                             {
@@ -137,7 +145,7 @@ namespace EscapeRoom
                                 mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
                             }
                         }
-                        else
+                        /*else
                         {
                             if (key.isCollect)
                             {
@@ -147,7 +155,7 @@ namespace EscapeRoom
                             {
                                 Console.Write(" ");
                             }
-                        }
+                        }*/
                     }
                     else
                     {
@@ -157,6 +165,7 @@ namespace EscapeRoom
                 Console.WriteLine();
             }
             Console.WriteLine();
+
         }
     }
 }

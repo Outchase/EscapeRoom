@@ -7,7 +7,6 @@ namespace EscapeRoom
 {
     internal class Program
     {
-
         static void Main(string[] args)
         {
             ASCIISign titleSign = new ASCIISign();
@@ -20,41 +19,49 @@ namespace EscapeRoom
             StartGame(titleSign, mainMenu, player, key, door, room);
         }
 
+        //Intro screen will be displayed 
         static void StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room)
         {
-
+            //set variables to default
             key.isCollect = false;
             player.didEscape = false;
+            bool isGameOver = false;
 
+            //display game title inguding game start interaction
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
-
             player.codeName = mainMenu.StartGameMessage();
-
             Console.ResetColor();
             Console.Clear();
 
+            //Game introduction coloring important information
             Console.Write("Agent ");
             mainMenu.PrinInColor(player.codeName, ConsoleColor.Green, true);
             Console.Write(", welcome aboard! We look forward to working with you. \n\nLet's go back to business. According to our sources, SAE is planning a secret weapon that will pose a danger to our \nPresident Joe Mama. One of our spies was dispatched to gather intel from the SAE's headquarters, but we lost contact \nwith him after a time. \n\nNow it's your turn to track him down and figure out what's going on at their headquarters, but first we need an \nestimate of the size of one of their buildings.\n");
 
-            room.ConfirmSize();
+            
+            room.ConfirmSize(player, key, door, mainMenu);
 
-
+            //generate x, y cordination of game objects
             player.position = GeneratePosition(player.position, room, false);
             key.position = GeneratePosition(key.position, room, false);
             door.position = GeneratePosition(door.position, room, true);
 
+            Console.WriteLine("Door:\n x: " + door.position[0] + "\n Y:" + door.position[1]);
+
+            //verify position of all game objects and generate new until alright
             PositionVerify(player.position, key.position, door.position, room);
 
-            Game(false, player, room, key, door, mainMenu, titleSign);
+            //displaying the actual game
+            Gameplay(isGameOver, player, room, key, door, mainMenu, titleSign);
         }
 
-
+        //generates a random x,y corrdinate depending on the roomn size
         static int[] GeneratePosition(int[] objPosition, Room room, bool isDoor)
         {
             Random randomNumber = new Random();
 
-            int[] edgeHeightPosition = new int[] { 2, room.height - 1 };
+            int[] edgeHeightPosition = new int[] { 1, room.height }; //rework
+
             int xPosition = randomNumber.Next(2, room.width);
             int yPosition = randomNumber.Next(2, room.height);
 
@@ -64,14 +71,21 @@ namespace EscapeRoom
             }
             else
             {
-                if (xPosition != 2 || xPosition != room.width)
+                xPosition = randomNumber.Next(1, room.width+1);
+
+                if (xPosition >= 2 && xPosition <= room.width)
                 {
                     objPosition = new int[] { xPosition, edgeHeightPosition[randomNumber.Next(2)] };
                 }
+                else {
+                    objPosition = new int[] { xPosition, randomNumber.Next(2, room.height)};
+                }
             }
+
             return objPosition;
         }
 
+        //Verifies and avoid game objects spawn at the same spot 
         static void PositionVerify(int[] playerPosition, int[] keyPosition, int[] doorPosition, Room room)
         {
             bool isOrganized = false;
@@ -101,10 +115,13 @@ namespace EscapeRoom
             }
         }
 
-        static void Game(bool gameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
+        //starts the actual gameplay
+        static void Gameplay(bool isGameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
         {
-            while (!gameOver)
+            //listens to interactions until game is over
+            while (!isGameOver)
             {
+                //Display Controls
                 Console.Write("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the ");
                 mainMenu.PrinInColor("W,A,S,D", ConsoleColor.Green, true);
                 Console.Write(" keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card (");
@@ -114,16 +131,12 @@ namespace EscapeRoom
                 Console.Write(") will be visible and may be entered by heading to it.\n");
                 mainMenu.PrinInColor("\nMission:\n", ConsoleColor.Yellow, true);
 
+                //set true when player collects the key
                 if (player.position[0] == key.position[0] && player.position[1] == key.position[1] && !key.isCollect)
                 {
                     key.isCollect = true;
                 }
-
-                if (player.position[0] == door.position[0] && player.position[1] == door.position[1] && key.isCollect)
-                {
-                    player.didEscape = true;
-                }
-
+                //change color of objective when succeed
                 if (key.isCollect)
                 {
                     mainMenu.PrinInColor("■ Collect the Keycard\n", ConsoleColor.Green, true);
@@ -133,10 +146,12 @@ namespace EscapeRoom
                     Console.WriteLine("■ Collect the Keycard");
                 }
 
-                if (player.didEscape)
+                //set true when player collected the key and enters the door
+                if (player.position[0] == door.position[0] && player.position[1] == door.position[1] && key.isCollect)
                 {
                     mainMenu.PrinInColor("■ Escape from the HQ\n", ConsoleColor.Green, true);
-                    gameOver = true;
+                    isGameOver = true;
+                    Console.Clear();
                 }
                 else
                 {
@@ -146,21 +161,23 @@ namespace EscapeRoom
                 }
             }
 
+            //Display complete Mission sign and prompt to retry
             mainMenu.PrinInColor(titleSign.missionComplete, ConsoleColor.Yellow, true);
-            bool wantToPlayAgain = RestartGame(mainMenu, titleSign);
+            bool wantToPlayAgain = RestartGame(mainMenu);
             Console.Clear();
 
-            if (wantToPlayAgain)
+            if (wantToPlayAgain) //recall the method when user wants to playa again
             {
                 StartGame(titleSign, mainMenu, player, key, door, room);
             }
-            else
+            else  //displays outro message 
             {
                 mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
             }
         }
 
-        static bool RestartGame(Menu mainMenu, ASCIISign titleSign)
+        //prompt weather the user wants to play another round return true or false
+        static bool RestartGame(Menu mainMenu)
         {
 
             ConsoleKeyInfo userKeyInput;

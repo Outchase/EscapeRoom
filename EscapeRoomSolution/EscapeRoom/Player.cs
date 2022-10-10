@@ -8,23 +8,25 @@ namespace EscapeRoom
 {
     internal class Player
     {
-        ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();
+        ConsoleKeyInfo keyinfo = new ConsoleKeyInfo();  
 
         public string codeName;
 
         public bool didEscape = false;
 
+        //player movement
         public void Movement(Room room)
         {
-
             bool rightKeyPressed = false;
 
+            //listens to key input and changes player cordinates
             while (!rightKeyPressed)
             {
                 keyinfo = Console.ReadKey(true);
 
                 if (position[0] == 2 && position[1] == 2)
-                { //top left
+                {
+                    //player is top left
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.S:
@@ -38,7 +40,8 @@ namespace EscapeRoom
                     }
                 }
                 else if (position[0] == room.width - 1 && position[1] == 2)
-                { //top right
+                { 
+                    //player is top right
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.S:
@@ -52,7 +55,8 @@ namespace EscapeRoom
                     }
                 }
                 else if (position[0] == 2 && position[1] == room.height - 1)
-                { //bottom left
+                { 
+                    //player is bottom left
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.W:
@@ -65,8 +69,9 @@ namespace EscapeRoom
                             break;
                     }
                 }
-                else if (position[0] == room.width - 1 && position[1] == room.height - 1) // bottom righ
+                else if (position[0] == room.width - 1 && position[1] == room.height - 1) 
                 {
+                    //player is bottom right
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.W:
@@ -80,6 +85,7 @@ namespace EscapeRoom
                     }
                 }
                 else if (position[0] > 2 && position[0] < room.width - 1 && position[1] == 2) {
+                    //player is top edge
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.S:
@@ -96,6 +102,7 @@ namespace EscapeRoom
                             break;
                     }
                 } else if (position[0] > 2 && position[0] < room.width - 1 && position[1] == room.height - 1) {
+                    //player is bottom edge
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.W:
@@ -112,6 +119,7 @@ namespace EscapeRoom
                             break;
                     }
                 } else if (position[1] > 2 && position[1] < room.height - 1 && position[0] == 2) {
+                    //player is left edge
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.W:
@@ -128,6 +136,7 @@ namespace EscapeRoom
                             break;
                     }
                 } else if (position[1] > 2 && position[1] < room.height - 1 && position[0] == room.width-1) {
+                    //player is right edge
                     switch (keyinfo.Key)
                     {
                         case ConsoleKey.W:
@@ -167,7 +176,9 @@ namespace EscapeRoom
                     }
                 }
             }
-            Console.Clear();
+
+            //set the position of cursor to 0 & avoid flickering
+            Console.SetCursorPosition(Console.CursorLeft=0,Console.CursorTop=0);
         }
 
         public int[] position = {0,0};

@@ -10,6 +10,8 @@ namespace EscapeRoom
     internal class Menu
     {
         string playerName = "";
+        
+        //Display game title screen
         public string StartGameMessage() {
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
@@ -30,6 +32,7 @@ namespace EscapeRoom
             return playerName;
         }
 
+        //Introduction saves player name into variable
         public string IntroGame()
         {
             bool userInputRight = false;
@@ -37,6 +40,7 @@ namespace EscapeRoom
 
             Console.WriteLine("You are going to infiltrate SAE's headquarter.\nThis mission necessitates the use of a code name. What is it going to be?");
 
+            //promt player name saves into variabl
             while (!userInputRight) {
             PrinInColor("Enter your code name: ", ConsoleColor.Green, false);
 
@@ -51,6 +55,7 @@ namespace EscapeRoom
                 
             }
             
+            //after 3 tries set the value to "zero"
             if (codeNameTries == 3) {
                 playerName = "Zero";
             }
@@ -58,6 +63,7 @@ namespace EscapeRoom
             return playerName;
         }
 
+        //method prints message in color
         public void PrinInColor(string message, ConsoleColor color, bool resetColor)
         {
             Console.ForegroundColor = color;
