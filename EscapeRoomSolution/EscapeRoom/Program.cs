@@ -120,8 +120,6 @@ namespace EscapeRoom
         //starts the actual gameplay
         static void Gameplay(bool isGameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
         {
-            
-
             //listens to interactions until game is over
             while (!isGameOver)
             {
