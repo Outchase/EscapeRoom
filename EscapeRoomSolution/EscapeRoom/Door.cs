@@ -8,7 +8,7 @@ namespace EscapeRoom
 {
     internal class Door
     {
-        public int[] position = {0,0};
+        public int[] position;
 
         public string sprite = "█";
 

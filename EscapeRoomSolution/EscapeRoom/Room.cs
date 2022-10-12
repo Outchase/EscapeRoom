@@ -8,16 +8,17 @@ namespace EscapeRoom
 {
     internal class Room
     {
-        Menu mainMenu = new Menu();
         public int width;
         public int height;
+
+        public string[,] roomArray;
 
 
         public string sideWall = "║";
         public string uppLowerWall = "═";
 
         //verify input values of room size to generate
-        public static int VerifyRoomSize(string userInput, string message)
+        public static int VerifyRoomSize(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             int numericValue = 0;
@@ -27,7 +28,7 @@ namespace EscapeRoom
             while (!isNumber)
             {
                 Console.Write("Enter the " + message + " of the building (minimum 15 - maximum 230): ");
-                userInput = Console.ReadLine();
+                string userInput = Console.ReadLine();
 
                 if (int.TryParse(userInput, out numericValue) && numericValue >= 15 && numericValue <= 230)
                 {
@@ -42,17 +43,20 @@ namespace EscapeRoom
         //set and change the room size before confirm
         public void ConfirmSize(Player player, Key key, Door door, Menu mainMenu)
         {
-            string userInput = "";
             bool didConfirm = false;
 
             while (!didConfirm)
             {
-                //prompt width & height and display room size
-                width = VerifyRoomSize(userInput, "width");
-                height = VerifyRoomSize(userInput, "height");
+                //prompt width & height, generate and display the room size to confirm
+                width = VerifyRoomSize("width");
+                height = VerifyRoomSize("height");
                 Console.WriteLine("Width: " + width);
                 Console.WriteLine("Height: " + height);
-                GenerateRoom(player, key, door);
+
+                roomArray = GenerateRoom(player, key, door);
+                DrawBoard(roomArray, player, key, door, mainMenu, false);
+
+
 
                 mainMenu.PrinInColor("Are you sure with this size? [Y/n] ", ConsoleColor.Green, true);
 
@@ -79,93 +83,111 @@ namespace EscapeRoom
             }
         }
 
-        //generate the room and displays it //change to array
-        public void GenerateRoom(Player player, Key key, Door door)
+        //generate the room and saves into array //change to array
+        public string[,] GenerateRoom(Player player, Key key, Door door)
         {
+            int tempHeight = height - 1;
+            int tempWidth = width - 1;
 
-            for (int i = 1; i <= height; i++)
+            roomArray = new string[height,width];
+
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 1; j <= width; j++)
+                for (int j = 0; j < width; j++)
                 {
-                    if (i == 1 || i == height || j == 1 || j == width || i == door.position[1] && j == door.position[0])
+                    //generate the wall and corner
+                    if (i == 0 || i == tempHeight || j == 0 || j == tempWidth || i == door.position[1] && j == door.position[0])
                     {
-                        if (i == 1 && j == 1)
+                        if (i == 0 && j == 0)
                         {
-                            Console.Write("╔");
+                            roomArray[i, j] = "╔";
                         }
-                        else if (i == 1 && j == width)
+                        else if (i == 0 && j == tempWidth)
                         {
-                            Console.Write("╗");
+                            roomArray[i, j] = "╗";
                         }
-                        else if (i == height && j == 1)
+                        else if (i == tempHeight && j == 0)
                         {
-                            Console.Write("╚");
+                            roomArray[i, j] = "╚";
                         }
-                        else if (i == height && j == width)
+                        else if (i == tempHeight && j == tempWidth)
                         {
-                            Console.Write("╝");
+                            roomArray[i, j] = "╝";
                         }
-                        else if (i == 1 && j <= width || i == height && j <= width)
+                        else if (i == 0 && j <= tempWidth || i == tempHeight && j <= tempWidth)
                         {
                             if (i == door.position[1] && j == door.position[0] && key.isCollect)
                             {
-                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                                roomArray[i, j] = door.sprite;
                             }
                             else
                             {
-                                Console.Write(uppLowerWall);
+                                roomArray[i, j] = uppLowerWall;
                             }
                         }
                         else
                         {
                             if (i == door.position[1] && j == door.position[0] && key.isCollect)
                             {
-                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                                roomArray[i, j] = door.sprite;
                             }
                             else
                             {
-                                Console.Write(sideWall);
+                                roomArray[i, j] = sideWall;
                             }
                         }
-                    }   //generate the wall around
+                    }  
                     else if (i == player.position[1] && j == player.position[0] || i == key.position[1] && j == key.position[0] )
                     { //checks if the loop passes on of the items/player cordinations 
                         if (i == player.position[1] && j == player.position[0])      //add the object to the room
                         {
-                            mainMenu.PrinInColor(player.sprite, ConsoleColor.Red, true);
+                            roomArray[i, j] = player.sprite;
                         }
                         else
                         {
                             if (key.isCollect)
                             {
-                                Console.Write(" ");
+                                roomArray[i, j] = " ";
                             }
                             else
                             {
-                                mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
+                                roomArray[i, j] = key.sprite;
                             }
                         }
-                        /*else
-                        {
-                            if (key.isCollect)
-                            {
-                                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
-                            }
-                            else
-                            {
-                                Console.Write(" ");
-                            }
-                        }*/
                     }
                     else
                     {
-                        Console.Write(" ");
+                        roomArray[i, j] = " ";
                     }
+                }
+            }
+            //saves into array
+            return roomArray;
+        }
+
+        //Display generated array
+        public void DrawBoard(string[,] roomArray, Player player, Key key, Door door, Menu mainMenu, bool withGameObject) {
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (roomArray[i, j] == player.sprite && withGameObject)
+                    {
+                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Red, true);
+                    } else if (roomArray[i, j] == key.sprite && withGameObject)
+                    {
+                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Green, true);
+                    }
+                    else if (roomArray[i, j] == door.sprite && withGameObject) {
+                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Green, true);
+                    }
+                    else
+                    {
+                        Console.Write(roomArray[i,j]);
+                    } 
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine();
-
         }
     }
 }

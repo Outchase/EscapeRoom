@@ -26,6 +26,9 @@ namespace EscapeRoom
             key.isCollect = false;
             player.didEscape = false;
             bool isGameOver = false;
+            player.position = new int[] { 0, 0 };
+            key.position = new int[] { 0, 0 };
+            door.position = new int[] { 0, 0 };
 
             //display game title inguding game start interaction
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
@@ -46,7 +49,7 @@ namespace EscapeRoom
             key.position = GeneratePosition(key.position, room, false);
             door.position = GeneratePosition(door.position, room, true);
 
-            Console.WriteLine("Door:\n x: " + door.position[0] + "\n Y:" + door.position[1]);
+            //Console.WriteLine("Door:\n x: " + door.position[0] + "\n Y:" + door.position[1]);
 
             //verify position of all game objects and generate new until alright
             PositionVerify(player.position, key.position, door.position, room);
@@ -60,10 +63,17 @@ namespace EscapeRoom
         {
             Random randomNumber = new Random();
 
-            int[] edgeHeightPosition = new int[] { 1, room.height }; //rework
+            int[] edgeHeightPosition = new int[] { 0, room.height-1 }; //rework
 
-            int xPosition = randomNumber.Next(2, room.width);
-            int yPosition = randomNumber.Next(2, room.height);
+           // Console.WriteLine(room.width);
+
+            /*for (int i = 0; i < 50; i++)
+            {
+                Console.WriteLine(randomNumber.Next(1, room.height-1));
+            }*/
+
+            int xPosition = randomNumber.Next(1, room.width-2);
+            int yPosition = randomNumber.Next(1, room.height-2);
 
             if (!isDoor)
             {
@@ -71,14 +81,14 @@ namespace EscapeRoom
             }
             else
             {
-                xPosition = randomNumber.Next(1, room.width+1);
+                xPosition = randomNumber.Next(0, room.width);
 
-                if (xPosition >= 2 && xPosition <= room.width)
+                if (xPosition > 0 && xPosition < room.width-1)
                 {
-                    objPosition = new int[] { xPosition, edgeHeightPosition[randomNumber.Next(2)] };
+                    objPosition = new int[] { xPosition, edgeHeightPosition[randomNumber.Next(2)]};
                 }
                 else {
-                    objPosition = new int[] { xPosition, randomNumber.Next(2, room.height)};
+                    objPosition = new int[] { xPosition, randomNumber.Next(1, room.height-1)};
                 }
             }
 
@@ -99,14 +109,6 @@ namespace EscapeRoom
                     {
                         keyPosition = GeneratePosition(keyPosition, room, false);
                     }
-                    if (playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1])
-                    {
-                        doorPosition = GeneratePosition(doorPosition, room, true);
-                    }
-                    if (keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
-                    {
-                        doorPosition = GeneratePosition(doorPosition, room, true);
-                    }
                 }
                 else
                 {
@@ -118,6 +120,8 @@ namespace EscapeRoom
         //starts the actual gameplay
         static void Gameplay(bool isGameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
         {
+            
+
             //listens to interactions until game is over
             while (!isGameOver)
             {
@@ -156,8 +160,10 @@ namespace EscapeRoom
                 else
                 {
                     Console.WriteLine("■ Escape from the HQ");
-                    room.GenerateRoom(player, key, door);
-                    player.Movement(room);
+                    room.roomArray = room.GenerateRoom(player, key, door);
+                    room.DrawBoard(room.roomArray, player, key, door, mainMenu, true);
+                    player.Movement(room, door, key);
+                    Console.Beep();
                 }
             }
 
