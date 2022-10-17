@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="agentNoun" xml:space="preserve">
+    <value>Agent </value>
+  </data>
+  <data name="confirmRoomHeight" xml:space="preserve">
+    <value>height</value>
+  </data>
+  <data name="confirmRoomSizeMessage" xml:space="preserve">
+    <value>Are you sure with this size? [Y/n] </value>
+  </data>
+  <data name="confirmRoomWidth" xml:space="preserve">
+    <value>width</value>
+  </data>
+  <data name="controlsAfterDoor" xml:space="preserve">
+    <value>)
+After then, the door (</value>
+  </data>
+  <data name="controlsDoor" xml:space="preserve">
+    <value>) will be visible and may be entered by heading to it.
+</value>
+  </data>
+  <data name="controlsKeys" xml:space="preserve">
+    <value> keys:
+ ↑ To move up, use the W key\n ↓ To go down, use the S key
+ ← To go left, use the A key
+ → To go right, use the D key 
+You may collect it by wallking over the key card (</value>
+  </data>
+  <data name="introControls" xml:space="preserve">
+    <value>Before we begin the mission, I'd want to provide you with a few advice. 
+You can move around by using the </value>
+  </data>
+  <data name="introEstimateRoom" xml:space="preserve">
+    <value>, welcome aboard! We look forward to working with you. 
+
+Let's go back to business. According to our sources, SAE is planning a secret weapon that will pose a danger to our 
+President Joe Mama. One of our spies was dispatched to gather intel from the SAE's headquarters, but we lost contact 
+with him after a time. 
+
+Now it's your turn to track him down and figure out what's going on at their headquarters, but first we need an 
+estimate of the size of one of their buildings.
+</value>
+  </data>
+  <data name="mission" xml:space="preserve">
+    <value>
+Mission:
+</value>
+  </data>
+  <data name="objectiveEscape" xml:space="preserve">
+    <value>■ Escape from the HQ
+</value>
+  </data>
+  <data name="objectiveKeycard" xml:space="preserve">
+    <value>■ Collect the Keycard
+</value>
+  </data>
+  <data name="tryAgainPrompt" xml:space="preserve">
+    <value>Do you want to try again? [Y/n] </value>
+  </data>
+  <data name="verifyRoomEnter" xml:space="preserve">
+    <value>Enter the </value>
+  </data>
+  <data name="verifyRoomMinMax" xml:space="preserve">
+    <value> of the building (minimum 15 - maximum 230): </value>
+  </data>
+  <data name="WASD" xml:space="preserve">
+    <value>W,A,S,D</value>
+  </data>
+</root>

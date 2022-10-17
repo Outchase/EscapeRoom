@@ -30,3 +30,5 @@ D:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\refin
 D:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.pdb
 D:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.genruntimeconfig.cache
 D:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\ref\EscapeRoom.dll
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.Properties.Resources.resources
+E:\SAE\1sem\4F01\EscapeRoom\EscapeRoomSolution\EscapeRoom\obj\Debug\net5.0\EscapeRoom.csproj.GenerateResource.cache

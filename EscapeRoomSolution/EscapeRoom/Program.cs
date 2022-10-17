@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Numerics;
+using System.Reflection;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
+using EscapeRoom.Properties;
 
 namespace EscapeRoom
 {
@@ -37,9 +39,9 @@ namespace EscapeRoom
             Console.Clear();
 
             //Game introduction coloring important information
-            Console.Write("Agent ");
+            Console.Write(Resources.agentNoun);
             mainMenu.PrinInColor(player.codeName, ConsoleColor.Green, true);
-            Console.Write(", welcome aboard! We look forward to working with you. \n\nLet's go back to business. According to our sources, SAE is planning a secret weapon that will pose a danger to our \nPresident Joe Mama. One of our spies was dispatched to gather intel from the SAE's headquarters, but we lost contact \nwith him after a time. \n\nNow it's your turn to track him down and figure out what's going on at their headquarters, but first we need an \nestimate of the size of one of their buildings.\n");
+            Console.Write(Resources.introEstimateRoom);
 
             
             room.ConfirmSize(player, key, door, mainMenu);
@@ -104,7 +106,6 @@ namespace EscapeRoom
             {
                 if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1] || playerPosition[0] == doorPosition[0] && playerPosition[1] == doorPosition[1] || keyPosition[0] == doorPosition[0] && keyPosition[1] == doorPosition[1])
                 {
-                    Console.WriteLine("same");
                     if (playerPosition[0] == keyPosition[0] && playerPosition[1] == keyPosition[1])
                     {
                         keyPosition = GeneratePosition(keyPosition, room, false);
@@ -124,14 +125,14 @@ namespace EscapeRoom
             while (!isGameOver)
             {
                 //Display Controls
-                Console.Write("Before we begin the mission, I'd want to provide you with a few advice. \nYou can move around by using the ");
-                mainMenu.PrinInColor("W,A,S,D", ConsoleColor.Green, true);
-                Console.Write(" keys:\n ↑ To move up, use the W key\n ↓ To go down, use the S key\n ← To go left, use the A key\n → To go right, use the D key \nYou may collect it by wallking over the key card (");
+                Console.Write(Resources.introControls);
+                mainMenu.PrinInColor(Resources.WASD, ConsoleColor.Green, true);
+                Console.Write(Resources.controlsKeys);
                 mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
-                Console.Write(")\nAfter then, the door (");
+                Console.Write(Resources.controlsAfterDoor);
                 mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
-                Console.Write(") will be visible and may be entered by heading to it.\n");
-                mainMenu.PrinInColor("\nMission:\n", ConsoleColor.Yellow, true);
+                Console.Write(Resources.controlsDoor);
+                mainMenu.PrinInColor(Resources.mission, ConsoleColor.Yellow, true);
 
                 //set true when player collects the key
                 if (player.position[0] == key.position[0] && player.position[1] == key.position[1] && !key.isCollect)
@@ -141,23 +142,23 @@ namespace EscapeRoom
                 //change color of objective when succeed
                 if (key.isCollect)
                 {
-                    mainMenu.PrinInColor("■ Collect the Keycard\n", ConsoleColor.Green, true);
+                    mainMenu.PrinInColor(Resources.objectiveKeycard, ConsoleColor.Green, true);
                 }
                 else
                 {
-                    Console.WriteLine("■ Collect the Keycard");
+                    Console.Write(Resources.objectiveKeycard);
                 }
 
                 //set true when player collected the key and enters the door
                 if (player.position[0] == door.position[0] && player.position[1] == door.position[1] && key.isCollect)
                 {
-                    mainMenu.PrinInColor("■ Escape from the HQ\n", ConsoleColor.Green, true);
+                    mainMenu.PrinInColor(Resources.objectiveEscape, ConsoleColor.Green, true);
                     isGameOver = true;
                     Console.Clear();
                 }
                 else
                 {
-                    Console.WriteLine("■ Escape from the HQ");
+                    Console.Write(Resources.objectiveEscape);
                     room.roomArray = room.GenerateRoom(player, key, door);
                     room.DrawBoard(room.roomArray, player, key, door, mainMenu, true);
                     player.Movement(room, door, key);
@@ -188,7 +189,7 @@ namespace EscapeRoom
             bool keyPressedRight = false;
             bool wantToPlayAgain = false;
 
-            mainMenu.PrinInColor("Do you want to try again? [Y/n] ", ConsoleColor.Green, true);
+            mainMenu.PrinInColor(Resources.tryAgainPrompt, ConsoleColor.Green, true);
 
             while (!keyPressedRight)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EscapeRoom.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,7 @@ namespace EscapeRoom
             //min and max inputs and parse to initger
             while (!isNumber)
             {
-                Console.Write("Enter the " + message + " of the building (minimum 15 - maximum 230): ");
+                Console.Write(Resources.verifyRoomEnter + message + Resources.verifyRoomMinMax);
                 string userInput = Console.ReadLine();
 
                 if (int.TryParse(userInput, out numericValue) && numericValue >= 15 && numericValue <= 230)
@@ -48,17 +49,17 @@ namespace EscapeRoom
             while (!didConfirm)
             {
                 //prompt width & height, generate and display the room size to confirm
-                width = VerifyRoomSize("width");
-                height = VerifyRoomSize("height");
-                Console.WriteLine("Width: " + width);
-                Console.WriteLine("Height: " + height);
+                width = VerifyRoomSize(Resources.confirmRoomWidth);
+                height = VerifyRoomSize(Resources.confirmRoomHeight);
+                Console.WriteLine(Resources.confirmRoomWidth +" "+ width);
+                Console.WriteLine(Resources.confirmRoomHeight +" "+ height);
 
                 roomArray = GenerateRoom(player, key, door);
                 DrawBoard(roomArray, player, key, door, mainMenu, false);
 
 
 
-                mainMenu.PrinInColor("Are you sure with this size? [Y/n] ", ConsoleColor.Green, true);
+                mainMenu.PrinInColor(Resources.confirmRoomSizeMessage, ConsoleColor.Green, true);
 
                 ConsoleKeyInfo userKeyInput;
                 bool keyPressedRight = false;
