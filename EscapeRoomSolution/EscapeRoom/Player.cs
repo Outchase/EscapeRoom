@@ -63,7 +63,7 @@ namespace EscapeRoom
 
     public int[] position;
 
-    public string sprite = "■";
+    public char sprite = '\u25A0';
 
-}
+    }
 }

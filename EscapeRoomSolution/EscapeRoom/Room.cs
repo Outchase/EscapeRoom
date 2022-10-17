@@ -12,11 +12,11 @@ namespace EscapeRoom
         public int width;
         public int height;
 
-        public string[,] roomArray;
+        public char[,] roomArray;
 
 
-        public string sideWall = "║";
-        public string uppLowerWall = "═";
+        public char sideWall = '\u2551'; 
+        public char uppLowerWall = '\u2550'; 
 
         //verify input values of room size to generate
         public static int VerifyRoomSize(string message)
@@ -85,12 +85,12 @@ namespace EscapeRoom
         }
 
         //generate the room and saves into array //change to array
-        public string[,] GenerateRoom(Player player, Key key, Door door)
+        public char[,] GenerateRoom(Player player, Key key, Door door)
         {
             int tempHeight = height - 1;
             int tempWidth = width - 1;
 
-            roomArray = new string[height,width];
+            roomArray = new char[height,width];
 
             for (int i = 0; i < height; i++)
             {
@@ -101,19 +101,19 @@ namespace EscapeRoom
                     {
                         if (i == 0 && j == 0)
                         {
-                            roomArray[i, j] = "╔";
+                            roomArray[i, j] = '\u2554';
                         }
                         else if (i == 0 && j == tempWidth)
                         {
-                            roomArray[i, j] = "╗";
+                            roomArray[i, j] = '\u2557'; 
                         }
                         else if (i == tempHeight && j == 0)
                         {
-                            roomArray[i, j] = "╚";
+                            roomArray[i, j] = '\u255A';
                         }
                         else if (i == tempHeight && j == tempWidth)
                         {
-                            roomArray[i, j] = "╝";
+                            roomArray[i, j] = '\u255D';
                         }
                         else if (i == 0 && j <= tempWidth || i == tempHeight && j <= tempWidth)
                         {
@@ -148,7 +148,7 @@ namespace EscapeRoom
                         {
                             if (key.isCollect)
                             {
-                                roomArray[i, j] = " ";
+                                roomArray[i, j] = '\u0020';
                             }
                             else
                             {
@@ -158,7 +158,7 @@ namespace EscapeRoom
                     }
                     else
                     {
-                        roomArray[i, j] = " ";
+                        roomArray[i, j] = '\u0020';
                     }
                 }
             }
@@ -167,20 +167,20 @@ namespace EscapeRoom
         }
 
         //Display generated array
-        public void DrawBoard(string[,] roomArray, Player player, Key key, Door door, Menu mainMenu, bool withGameObject) {
+        public void DrawBoard(char[,] roomArray, Player player, Key key, Door door, Menu mainMenu, bool withGameObject) {
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
                     if (roomArray[i, j] == player.sprite && withGameObject)
                     {
-                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Red, true);
+                        mainMenu.PrinInColor(Char.ToString(roomArray[i, j]), ConsoleColor.Red, true);
                     } else if (roomArray[i, j] == key.sprite && withGameObject)
                     {
-                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Green, true);
+                        mainMenu.PrinInColor(Char.ToString(roomArray[i, j]), ConsoleColor.Green, true);
                     }
                     else if (roomArray[i, j] == door.sprite && withGameObject) {
-                        mainMenu.PrinInColor(roomArray[i, j], ConsoleColor.Green, true);
+                        mainMenu.PrinInColor(Char.ToString(roomArray[i, j]), ConsoleColor.Green, true);
                     }
                     else
                     {

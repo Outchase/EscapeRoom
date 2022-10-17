@@ -9,20 +9,31 @@ namespace EscapeRoom
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            ASCIISign titleSign = new ASCIISign();
-            Menu mainMenu = new Menu();
-            Player player = new Player();
-            Key key = new Key();
-            Door door = new Door();
-            Room room = new Room();
+            ASCIISign titleSign = new();
+            Menu mainMenu = new();
+            Player player = new();
+            Key key = new();
+            Door door = new();
+            Room room = new();
+            bool wantToPlayAgain = true;
 
-            StartGame(titleSign, mainMenu, player, key, door, room);
+            while (wantToPlayAgain)
+            {
+                wantToPlayAgain= StartGame(titleSign, mainMenu, player, key, door, room, wantToPlayAgain);
+                Environment.Exit(0);
+            }
+            mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
+        }
+
+        private static void Exit()
+        {
+            throw new NotImplementedException();
         }
 
         //Intro screen will be displayed 
-        static void StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room)
+        static bool StartGame(ASCIISign titleSign, Menu mainMenu, Player player, Key key, Door door, Room room, bool wantToPlayAgain)
         {
             //set variables to default
             key.isCollect = false;
@@ -31,6 +42,7 @@ namespace EscapeRoom
             player.position = new int[] { 0, 0 };
             key.position = new int[] { 0, 0 };
             door.position = new int[] { 0, 0 };
+
 
             //display game title inguding game start interaction
             mainMenu.PrinInColor(titleSign.title, ConsoleColor.Yellow, false);
@@ -51,28 +63,22 @@ namespace EscapeRoom
             key.position = GeneratePosition(key.position, room, false);
             door.position = GeneratePosition(door.position, room, true);
 
-            //Console.WriteLine("Door:\n x: " + door.position[0] + "\n Y:" + door.position[1]);
 
             //verify position of all game objects and generate new until alright
             PositionVerify(player.position, key.position, door.position, room);
 
             //displaying the actual game
-            Gameplay(isGameOver, player, room, key, door, mainMenu, titleSign);
+            wantToPlayAgain = Gameplay(isGameOver, player, room, key, door, mainMenu, titleSign, wantToPlayAgain);
+
+            return wantToPlayAgain;
         }
 
         //generates a random x,y corrdinate depending on the roomn size
         static int[] GeneratePosition(int[] objPosition, Room room, bool isDoor)
         {
-            Random randomNumber = new Random();
+            Random randomNumber = new();
 
             int[] edgeHeightPosition = new int[] { 0, room.height-1 }; //rework
-
-           // Console.WriteLine(room.width);
-
-            /*for (int i = 0; i < 50; i++)
-            {
-                Console.WriteLine(randomNumber.Next(1, room.height-1));
-            }*/
 
             int xPosition = randomNumber.Next(1, room.width-2);
             int yPosition = randomNumber.Next(1, room.height-2);
@@ -119,7 +125,7 @@ namespace EscapeRoom
         }
 
         //starts the actual gameplay
-        static void Gameplay(bool isGameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign)
+        static bool Gameplay(bool isGameOver, Player player, Room room, Key key, Door door, Menu mainMenu, ASCIISign titleSign, bool wantToPlayAgain)
         {
             //listens to interactions until game is over
             while (!isGameOver)
@@ -128,9 +134,9 @@ namespace EscapeRoom
                 Console.Write(Resources.introControls);
                 mainMenu.PrinInColor(Resources.WASD, ConsoleColor.Green, true);
                 Console.Write(Resources.controlsKeys);
-                mainMenu.PrinInColor(key.sprite, ConsoleColor.Green, true);
+                mainMenu.PrinInColor(Char.ToString(key.sprite), ConsoleColor.Green, true);
                 Console.Write(Resources.controlsAfterDoor);
-                mainMenu.PrinInColor(door.sprite, ConsoleColor.Green, true);
+                mainMenu.PrinInColor(Char.ToString(door.sprite), ConsoleColor.Green, true);
                 Console.Write(Resources.controlsDoor);
                 mainMenu.PrinInColor(Resources.mission, ConsoleColor.Yellow, true);
 
@@ -168,26 +174,22 @@ namespace EscapeRoom
 
             //Display complete Mission sign and prompt to retry
             mainMenu.PrinInColor(titleSign.missionComplete, ConsoleColor.Yellow, true);
-            bool wantToPlayAgain = RestartGame(mainMenu);
+            //recall the method when user wants to playa again
+            wantToPlayAgain = RestartGame(mainMenu, wantToPlayAgain);
+            
             Console.Clear();
+            return wantToPlayAgain;
 
-            if (wantToPlayAgain) //recall the method when user wants to playa again
-            {
-                StartGame(titleSign, mainMenu, player, key, door, room);
-            }
-            else  //displays outro message 
-            {
-                mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
-            }
+           
         }
 
         //prompt weather the user wants to play another round return true or false
-        static bool RestartGame(Menu mainMenu)
+        static bool RestartGame(Menu mainMenu, bool wantToPlayAgain)
         {
 
             ConsoleKeyInfo userKeyInput;
             bool keyPressedRight = false;
-            bool wantToPlayAgain = false;
+            
 
             mainMenu.PrinInColor(Resources.tryAgainPrompt, ConsoleColor.Green, true);
 
@@ -199,11 +201,11 @@ namespace EscapeRoom
                 if (userKeyInput.Key == ConsoleKey.Y)
                 {
                     keyPressedRight = true;
-                    wantToPlayAgain = true;
                 }
                 else if (userKeyInput.Key == ConsoleKey.N)
                 {
                     keyPressedRight = true;
+                    wantToPlayAgain = false;
                 }
             }
 

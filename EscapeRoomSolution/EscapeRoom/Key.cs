@@ -10,7 +10,7 @@ namespace EscapeRoom
     {
         public int[] position;
 
-        public string sprite = "·";
+        public char sprite = '\u2219';
 
         public bool isCollect;
     }
