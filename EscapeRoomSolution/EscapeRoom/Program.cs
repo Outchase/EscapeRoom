@@ -22,9 +22,10 @@ namespace EscapeRoom
             while (wantToPlayAgain)
             {
                 wantToPlayAgain= StartGame(titleSign, mainMenu, player, key, door, room, wantToPlayAgain);
-                Environment.Exit(0);
             }
+
             mainMenu.PrinInColor(titleSign.outro, ConsoleColor.Yellow, true);
+            Environment.Exit(0);
         }
 
         private static void Exit()
